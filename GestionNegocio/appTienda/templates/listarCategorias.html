@@ -1,0 +1,33 @@
+{% extends "index.html"%} {% block encabezado%} {% include "encabezado.html"%} {% endblock%} 
+{% block nav%} {% include "menu.html"%} {% endblock%}
+{% block contenido%}
+<div style="margin: auto;">
+    {% csrf_token %}
+    <div>
+        <table class="table table-bordered table-hover table-primary">
+            <thead class="bg-danger text-white text-center">
+                <tr>
+                    <th>Nombre de la Categoria</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in listaCategorias %}
+                <tr>
+                    <td>{{categoria.catNombre}}</td>    
+                    <td class="text-center" style="font-size: 4vh;">
+                        <a href="/eliminarCategoria/{{categoria.idCategoria}}">
+                            <i class="fa fa-trash text-danger" title="eliminarCategoria"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%if mensaje %}
+<script>
+    Swal.fire("Gestionar categoria", '{{mensaje}}', 'info')
+</script>
+{% endif %} {% endblock%} {% block piePagina%} {% include "piePagina.html"%} {% endblock%}
