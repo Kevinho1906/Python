@@ -1,12 +1,19 @@
-{% extends "index.html"%} {% block encabezado%} {% include "encabezado.html"%} {% endblock%} {%block contenido %}
+{% extends "index.html"%} 
+{% block encabezado%} 
+{% include "encabezado.html"%} 
+{% endblock%} 
+{% block nav%} 
+{% include "menu.html"%} 
+{% endblock%}
+{%block contenido %}
 <div class="w-50" style="margin: 0 auto;">
-    <form action="/agregarProducto" method="post" enctype="multipart/form-data" class="was-validated">
+    <form action="/agregarProducto/" method="post" enctype="multipart/form-data" class="was-validated">
         {% csrf_token %}
         <div>
-            <h3 class="text-center text-black-50"><b>Agregar Producto</b></h3>
+            <h3 class="text-center text-black-50 fw-bold text-decoration-underline text-dark"><b>Agregar Producto</b></h3>
         </div>
         <div class="mb-3">
-            <label class="fw-bold" for="txtCodigo">Codigo: </label>
+            <label class="fw-bold" for="txtCodigo">Código: </label>
             <input type="number" name="txtCodigo" id="txtCodigo" class="form-control" value="{{producto.proCodigo}}" required>
         </div>
         <div class="mb-3">
@@ -17,26 +24,25 @@
             <label class="fw-bold" for="txtPrecio">Precio: </label>
             <input type="number" name="txtPrecio" id="txtPrecio" class="form-control" value="{{producto.proPrecio}}" required>
         </div>
-
         <div class="mb-3">
-            <label class="fw-bold" for="fileFoto">Imagen: </label>
-            <input type="file" name="fileFoto" id="fileFoto" class="form-control" accept=".jpg">
-
-        </div>
-        <div class="mb-3">
-            <label class="fw-bold" for="txtCodigo">Categoria: </label>
+            <label class="fw-bold" for="cbCategoria">Categoria: </label>
             <select name="cbCategoria" id="cbCategoria" class="form-select" required>
                     <option value="">seleccione</option>
                     {% for categoria in listaCategorias%}
-                        <option value="{{categoria.idCategoria}}">{{categoria.catNombre}}</option>
+                        <option value="{{categoria.id}}">{{categoria.catNombre}}</option>
                     {% endfor %}    
                 </select>
             <div>
             </div>
         </div>
-        <button class="btn btn-success">Agregar</button>
+        <div class="mb-3">
+            <label class="fw-bold" for="fileFoto">Imagen: </label>
+            <input type="file" name="fileFoto" id="fileFoto" class="form-control" accept=".jpg">
+
+        </div>
+        <button class="btn btn-dark">Agregar</button>
     </form>
-    {%if mensaje %}
+    {% if mensaje %}
         <script>
             Swal.fire("Agregar producto", '{{mensaje}}', 'info')
         </script>
